@@ -235,10 +235,19 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin: 5px;
         }
 
         #updatePanel button:hover {
             background-color: #0044aa;
+        }
+
+        #updatePanel button.clear-all {
+            background-color: #cc0000;
+        }
+
+        #updatePanel button.clear-all:hover {
+            background-color: #aa0000;
         }
     </style>
 </head>
@@ -279,6 +288,7 @@
         <input type="text" id="name" placeholder="Racer Name">
         <input type="number" id="time" placeholder="Finish Time">
         <button onclick="addRacer()">Add Racer</button>
+        <button class="clear-all" onclick="clearAll()">Clear All</button>
     </div>
 
     <script>
@@ -296,6 +306,15 @@
         // Save data to localStorage
         function saveData() {
             localStorage.setItem('racers', JSON.stringify(racers));
+        }
+
+        // Clear all data
+        function clearAll() {
+            if (confirm("Are you sure you want to clear all racers?")) {
+                racers = []; // Clear the racers array
+                localStorage.removeItem('racers'); // Remove data from localStorage
+                updateLeaderboard(); // Update the leaderboard display
+            }
         }
 
         function openMenu() {
